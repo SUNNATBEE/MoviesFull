@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Movies</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/main.css">
     <!-- <link rel="stylesheet" href="./css/main.min.css"> -->
@@ -39,12 +39,14 @@
             <h1 class="visually-hidden">International Movies</h1>
             <div class="container">
                 <h2 class="visually-hidden"> Movies list</h2>
-                <form class="movie__form d-flex justify-content-center mt-5" action="https://echo.htmlacademy.ru/" method="post" autocomplete="off">
-                    <input class="movie__search form-control w-50" type="search" placeholder="Enter your movie name">
-                    <select class="form__select w-25 rounded me-2 ms-2" aria-label="Default select example">
-                        <option selected value="all">all</option>
+                <form class="movie__form d-flex flex-column align-items-center flex-md-row mt-5" action="https://echo.htmlacademy.ru/" method="post" autocomplete="off">
+                    <input class="movie__search for-responsive form-control w-50" type="search" placeholder="Enter your movie name">
+                    <select class="form-control for-responsive form__select w-25 rounded me-2 ms-2" aria-label="Default select example">
+                        <option selected value="all">All</option>
                     </select>
-                    <select class="sort__select w-25 rounded me-2 ms-2" aria-label="Default select example">
+                    <input class="min-year for-responsive me-2 form-control w-25" type="number" placeholder="from year">
+                    <input class="max-year for-responsive form-control w-25" type="number" placeholder="to year">
+                    <select class="form-control for-responsive sort__select w-25 rounded me-2 ms-2" aria-label="Default select example">
                         <option selected hidden value="sort">Sort</option>
                         <option value="a-z">A-Z</option>
                         <option value="z-a">Z-A</option>
@@ -53,7 +55,7 @@
                         <option value="2018-2000">Max-year 2018-2000</option>
                         <option value="2000-2018">Min-year 2000-2018</option>
                     </select>
-                    <button class="movie__search-btn btn btn-danger" type="submit">
+                    <button class="movie__search-btn btn btn-danger for-responsive" type="submit">
                         Search
                     </button>
                     
@@ -63,9 +65,7 @@
                         <span class="number-moves fw-bold " >
                             0
                         </span>
-                        
                     </button>
-
                 </div>
                 <ul class="movie__list js-movie-list row list-unstyled justify-content-between flex-wrap ">     
                 </ul>
@@ -76,6 +76,8 @@
             
         </section>
         <!-- Hero section finish  -->
+        
+        <!-- Template start -->
         <template class="movie__template">
             <li class="movie__item  col-3 mb-4 mx-auto rounded">
                 <div class="movie__box bg-secondary  d-flex flex-column justify-content-between align-items-center p-3 rounded" >
@@ -100,15 +102,17 @@
                     </button>
                 </div>
                 <button class="btn add-favorite-btn" ></button>
-                <button class="btn  js-delete-bookmark visually-hidden"> </button>
+                <button class="btn  js-delete-bookmark d-none"> </button>
             </li>
         </template>
+        
+        <!-- Template start -->
     </main>
     <!-- Main finish  -->
     
     <!-- Button trigger modal -->
     
-    <!-- Modal -->
+    <!-- Modal  start-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -137,15 +141,13 @@
                                 times asd  asld kla
                             </p>  
                         </div>
-                        <a class="modal__link" href="">Show on OMDb</a>            
-                    </div>
-                    
+                        <a class="modal__link" href="" target="blank">Show on OMDb</a>            
+                    </div> 
                 </div>
-                
             </div>
         </div>
     </div>
-    
+    <!-- Modal  start-->
     
     
     

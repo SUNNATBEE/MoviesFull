@@ -10,8 +10,7 @@ const bookmarksArray = [];
 const bookmarkCount = document.querySelector(".number-moves");
 const bookmarkStar = document.querySelector(".add-favorite-btn");
 
-// Get modal Elements from dom
-
+// Get modal Elements from dom start
 const modalMoviesTitle = document.querySelector(".modal__title");
 const modalMoviesIframe = document.querySelector(".modal__iframe");
 const modalMoviesRatong = document.querySelector(".modal__rating");
@@ -21,12 +20,47 @@ const modalMoviesDecs = document.querySelector(".modal__categories");
 const modalMoviesSummary = document.querySelector(".modal__summary");
 const modalMoviesLink = document.querySelector(".modal__link");
 const modal = document.querySelector(".modal");
-const elMinInput = document.querySelector(".min-input-year");
-const elMaxInput = document.querySelector(".max-input-year");
+const elMinInput = document.querySelector(".min-year");
+const elMaxInput = document.querySelector(".max-year");
+// Get modal Elements from dom finish
 
-// Get modal Elements from dom
+// Render movies start
+function renderMovie(movie, regex = ""){
+    elMovieList.innerHTML = ""
+    const elMovieTemplate = document.querySelector(".movie__template").content;
+    const movieFragment = document.createDocumentFragment();
+    movie.forEach(item => {
+        
+        const elMovieClone = elMovieTemplate.cloneNode(true);
+        // if(bookmarkStar.includes(item.id)){
+        // }else{
+        // }
+        elMovieClone.querySelector(".add-favorite-btn").dataset.favoriteId = item.imdb_id;
+        elMovieClone.querySelector(".movie__img").src = `https://i3.ytimg.com/vi/${item.ytid}/mqdefault.jpg`;
+        elMovieClone.querySelector(".movie__img").alt = item.Title;
+        
+        if(regex.source != "(?:)" && regex){
+            elMovieClone.querySelector(".movie__title").innerHTML = String(item.Title).replace(regex, `<mark class="text-bg-warning rounded">${regex.source.toLowerCase()}</mark>`);
+        }else{
+            elMovieClone.querySelector(".movie__title").innerHTML = String(item.Title);
+        }
+        elMovieClone.querySelector(".movie__rating").textContent = item.imdb_rating;
+        elMovieClone.querySelector(".movie__year").textContent = item.movie_year;
+        elMovieClone.querySelector(".movie__time").textContent = getTime(item.runtime);
+        elMovieClone.querySelector(".movie__description").textContent = item.Categories.split("|").join(" ");
+        elMovieClone.querySelector(".movies__btn").dataset.movieId = item.imdb_id;
+        
+        
+        
+        
+        movieFragment.appendChild(elMovieClone)
+    });
+    
+    elMovieList.appendChild(movieFragment)
+}
+// Render movies finish
 
-// get select category
+// get select category condition start
 const ganreArray = [];
 function selectMovie(selectName) {
     selectName.forEach((item) => {
@@ -38,8 +72,9 @@ function selectMovie(selectName) {
         });
     });
 }
+// get select category  condition finish
 
-// RenderSelect
+// RenderSelect start
 function select() {
     const newFragment = document.createDocumentFragment();
     ganreArray.forEach((item) => {
@@ -50,9 +85,9 @@ function select() {
     });
     elSelect.appendChild(newFragment);
 }
+//  RenderSelect finish
 
-// sort select
-
+// sort select start
 function sortSelect(moviesSort , getValue){
     if(getValue == "a-z"){
         moviesSort.sort((a,b) => {
@@ -90,8 +125,9 @@ function sortSelect(moviesSort , getValue){
     }
     
 }
+// sort select finish
 
-// Get time 
+// Get time start
 function getTime(time) {
     
     const hour = Math.floor(time / 60);
@@ -100,46 +136,12 @@ function getTime(time) {
     return `${hour} hs ${minut} min`
     
 }
-// Get time 
+// Get time finish
 
 
-// Render movies
-function renderMovie(movie, regex = ""){
-    elMovieList.innerHTML = ""
-    const elMovieTemplate = document.querySelector(".movie__template").content;
-    const movieFragment = document.createDocumentFragment();
-    movie.forEach(item => {
-        
-        const elMovieClone = elMovieTemplate.cloneNode(true);
-        // if(bookmarkStar.includes(item.id)){
-        // }else{
-        // }
-        elMovieClone.querySelector(".add-favorite-btn").dataset.favoriteId = item.imdb_id;
-        elMovieClone.querySelector(".movie__img").src = `https://i3.ytimg.com/vi/${item.ytid}/mqdefault.jpg`;
-        elMovieClone.querySelector(".movie__img").alt = item.Title;
-        
-        if(regex.source != "(?:)" && regex){
-            elMovieClone.querySelector(".movie__title").innerHTML = String(item.Title).replace(regex, `<mark class="text-bg-warning rounded">${regex.source.toLowerCase()}</mark>`);
-        }else{
-            elMovieClone.querySelector(".movie__title").innerHTML = String(item.Title);
-        }
-        elMovieClone.querySelector(".movie__rating").textContent = item.imdb_rating;
-        elMovieClone.querySelector(".movie__year").textContent = item.movie_year;
-        elMovieClone.querySelector(".movie__time").textContent = getTime(item.runtime);
-        elMovieClone.querySelector(".movie__description").textContent = item.Categories.split("|").join(" ");
-        elMovieClone.querySelector(".movies__btn").dataset.movieId = item.imdb_id;
-        
-        
-        
-        
-        movieFragment.appendChild(elMovieClone)
-    });
-    
-    elMovieList.appendChild(movieFragment)
-}
-// Render movies
 
-// Render modal
+
+// Render modal start
 function renderModal(modalInfo){
     modalMoviesTitle.textContent = modalInfo.Title;
     modalMoviesIframe.src = `https://www.youtube-nocookie.com/embed/${modalInfo.ytid}`;
@@ -148,11 +150,11 @@ function renderModal(modalInfo){
     modalMoviesTime.textContent = getTime(modalInfo.runtime);
     modalMoviesDecs.textContent = modalInfo.Categories.split("|").join(" ");
     modalMoviesSummary.textContent = modalInfo.summary;
-    modalMoviesLink.href = ``
+    modalMoviesLink.href = `https://www.imdb.com/title/${modalInfo.imdb_id}`
 }
-// Render modal
+// Render modal finish
 
-// Render bookmark
+// Render bookmark start
 function renderBookmark(bookmark,node){
     elBookmarkList.innerHTML = "";
     const elMovieTemplate = document.querySelector(".movie__template").content;
@@ -171,36 +173,40 @@ function renderBookmark(bookmark,node){
         elMovieClone.querySelector(".movie__description").textContent = item.Categories.split("|").join(" ");
         elMovieClone.querySelector(".movies__btn").dataset.movieId = item.imdb_id;
         elMovieClone.querySelector(".js-delete-bookmark").dataset.deleteID = item.imdb_id;
-        elMovieClone.querySelector(".add-favorite-btn").classList.add("visually-hidden");
-        elMovieClone.querySelector(".js-delete-bookmark").classList.remove("visually-hidden");
+        elMovieClone.querySelector(".add-favorite-btn").classList.add("d-none");
+        elMovieClone.querySelector(".js-delete-bookmark").classList.remove("d-none");
         movieFragment.appendChild(elMovieClone)
     });
     
     node.appendChild(movieFragment)
 }
-// Render bookmark
+// Render bookmark finish
 
 
-// Listen list for modal
+// Listen list for modal event deligation start
 elMovieList.addEventListener("click" , (evt) => {
     if(evt.target.matches(".movies__btn")){
         const modalBtn = evt.target.dataset.movieId;
         const modalFindMovie = movies.find(modal => modal.imdb_id === modalBtn);
         renderModal(modalFindMovie)
     }
+    // condition for push movie start
     if(evt.target.matches(".add-favorite-btn")){
         const favoriteBtn = evt.target.dataset.favoriteId;
-        const favoriteFind = movies.find(item => item.imdb_id == favoriteBtn);
-        const dat  = evt.target 
+        const favoriteFind = movies.find((item) => item.imdb_id == favoriteBtn);
+        const dat = evt.target;
         dat.classList.add("favorited");
-        if(!bookmarksArray.includes(favoriteFind)){
+        if (!bookmarksArray.includes(favoriteFind)) {
             bookmarksArray.push(favoriteFind);
-            renderBookmark(bookmarksArray,elBookmarkList);                
+            renderBookmark(bookmarksArray, elBookmarkList);
         }
+        // condition for push movie start
     }
     
 })
+// / Listen list for modal event deligation finish
 
+// Listen bookmark for delete movie from array start
 elBookmarkList.addEventListener("click" , (evt) => {
     if(evt.target.matches(".js-delete-bookmark")){
         const deleteBookmark = evt.target.dataset.deleteID;
@@ -211,16 +217,17 @@ elBookmarkList.addEventListener("click" , (evt) => {
         dat.classList.remove("favorited")
     }
 })
-// Listen list for modal
+// Listen bookmark for delete movie from array start
 
 
-// Listen modal for scr InnerHTML
+// Listen modal for scr InnerHTML Iframe
 modal.addEventListener("hide.bs.modal", function(){
     modalMoviesIframe.src = "";
 });
-// Listen modal for scr InnerHTML
+// Listen modal for scr InnerHTML Iframe
 
 
+// Listen form for search sort start
 elMovieForm.addEventListener("submit" , function(evt){
     evt.preventDefault()
     const inputValue = elMovieInput.value.trim();
@@ -228,28 +235,36 @@ elMovieForm.addEventListener("submit" , function(evt){
     const sortValue = sortDomSelect.value.trim()
     
     const seacrMovie = movies.filter(item => {
-        return String(item.Title).match(regexValu) && (elSelect.value == "all" || item.Categories.includes(elSelect.value));
+        return (
+            String(item.Title).match(regexValu) &&
+            (elSelect.value == "all" ||
+            item.Categories.includes(elSelect.value)) &&
+            (elMinInput.value == "" ||
+            Number(elMinInput.value) <= item.movie_year) &&
+            (elMaxInput.value == "" ||
+            Number(elMaxInput.value) >= item.movie_year)
+            );
+        })
+        if(seacrMovie.length > 0){
+            sortSelect(seacrMovie , sortValue);
+            renderMovie(seacrMovie, regexValu);
+        }else{
+            elMovieList.innerHTML = "Movie not found"
+        }
     })
-    if(seacrMovie.length > 0){
-        sortSelect(seacrMovie , sortValue);
-        renderMovie(seacrMovie, regexValu);
-    }else{
-        elMovieList.innerHTML = "Movie not found"
-    }
-})
-
-selectMovie(movies)
-select()
-renderMovie(movies.slice(0,20));
-
-// const changingElements = movies.map(item => {
-//     return {
-//       title: item.Title.toString,
-//       categories: item.Categories.split("|"),
-//       imdb_id:`https://www.imdb.com/title/${item.imdb_id}`,
-//       ytid: `https://www.youtube-nocookie.com/embed${item.ytid}`
-//       img_max:
-//     };
-// }) 
-
-// console.log(changingElements);
+    // Listen form for search sort finish
+    selectMovie(movies)
+    select()
+    renderMovie(movies.slice(0,20));
+    
+    // const changingElements = movies.map(item => {
+    //     return {
+    //       title: item.Title.toString,
+    //       categories: item.Categories.split("|"),
+    //       imdb_id:`https://www.imdb.com/title/${item.imdb_id}`,
+    //       ytid: `https://www.youtube-nocookie.com/embed${item.ytid}`
+    //       img_max:
+    //     };
+    // }) 
+    
+    // console.log(changingElements);

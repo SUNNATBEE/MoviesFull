@@ -21,7 +21,6 @@
     width: 274px;
     height: 150px;
 }
-
 .movie__rating::before{ 
     
     display: inline-block;
@@ -34,7 +33,6 @@
     content: '';
 } 
 .movie__year::before{ 
-    
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -45,7 +43,6 @@
     content: '';
 } 
 .movie__time::before{ 
-    
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -107,4 +104,11 @@
     height: 20px;
     border: none;
     background-color: transparent;
+}
+@media only screen and (max-width: 768px) {
+ .for-responsive{
+    width: 100%!important;
+    margin: 0!important;
+    margin-bottom: 10px!important;
+ }
 }
