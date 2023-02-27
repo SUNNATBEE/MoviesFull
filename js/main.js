@@ -255,7 +255,7 @@ elMovieForm.addEventListener("submit" , function(evt){
     // Listen form for search sort finish
     selectMovie(movies)
     select()
-    renderMovie(movies.slice(0,20));
+    renderMovie(movies);
     
     // const changingElements = movies.map(item => {
     //     return {
