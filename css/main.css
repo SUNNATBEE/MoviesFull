@@ -56,12 +56,10 @@
     content: '';
 }
 .movie__list{
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .bookmark-saved{
     position: relative;
-    margin-top: 50px;
-    margin-left: 20px;
     background-image: url("../images/favorite.svg");
     background-repeat: no-repeat;
     background-color: transparent;
@@ -89,7 +87,7 @@
     outline: none;
 }
 .add-favorite-btn:hover{
-   background-color: black;
+    background-color: black;
 }
 .favorited{
     background-color: black;

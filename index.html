@@ -13,11 +13,10 @@
     
     <!-- Header start -->
     <header class="site-header">
-        <button class="btn btn-primary bookmark-saved" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-            <span class="number-moves fw-bold " >
-                0
-            </span>
-        </button>
+        <div class="container">
+            <img class="img-fluid mt-5" src="./images/Movies!_logo.svg.png" alt="">
+        </div>
+        
         
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
@@ -26,7 +25,7 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="bookmark__list list-unstyled" >
-
+                    
                 </ul>
             </div>
         </div>
@@ -59,6 +58,15 @@
                     </button>
                     
                 </form>
+                <div class="mx-auto mt-3 d-flex justify-content-end" >
+                    <button class="btn btn-primary bookmark-saved " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <span class="number-moves fw-bold " >
+                            0
+                        </span>
+                        
+                    </button>
+
+                </div>
                 <ul class="movie__list js-movie-list row list-unstyled justify-content-between flex-wrap ">     
                 </ul>
                 
